@@ -1,0 +1,21 @@
+This is an Mass Storage example that demonstrates Mass Storage Class (MSC)
+on USB Device.
+
+Detailed description is available on:
+www.keil.com/pack/doc/MW/USB/html/dev_msc_tutorial.html
+
+Board:                  ST 'STM32303E-EVAL'
+Microcontroller:        ST 'STM32F303VET6'
+Clock Settings:         XTAL    =  8 MHz
+                        CPUCLK  = 72 MHz
+                        USB CLK = 48 MHz
+USB Full-speed:         USB FS (connector CN12)
+
+Storage Media (USBFS):  SD Card
+
+
+The program is available for target(s):
+- Debug:
+  - Compiler optimization Level 1
+- Release:
+  - Compiler optimization Level 3

@@ -1,0 +1,31 @@
+This is a File System file manipulation example.
+You can create, read, copy and delete files on any enabled
+drive (SD/MMC Card, NOR/NAND Flash) and format each drive.
+
+Detailed description is available on:
+www.keil.com/pack/doc/MW/FileSystem/html/fs_examples.html#fs_standalone_example
+
+The File_Demo program is a standalone application preconfigured for
+STM32F32373C-EVAL Board using ST-Link Debugger and ITM debug
+port as a communication interface.
+
+You can test it from uVision Debug Session:
+  Start Debug session (Ctrl + F5) and open Debug (printf)
+  Viewer (View->Serial Windows->Debug (printf) Viewer).
+
+Application is loaded into on-chip flash and is available 
+for following targets:
+- Debug:
+  - Compiler optimization Level 1
+  - Debug File System library
+  - Enabled Event Recorder
+- Release:
+  - Compiler optimization Level 3
+  - Release File System library
+
+
+Note:
+  - Card Detect pin handling is done in MCI_ReadCD function. Define
+    MemoryCard_CD0_Pin_Extern is required to enable Card Detect bit
+    in MCI driver capabilities.
+  - Slave Select pin handling is done in fs_mc_spi_control_ss function.

@@ -1,0 +1,360 @@
+{
+  "name": "inv3p",
+  "type": "ARM",
+  "dependenceList": [],
+  "srcDirs": [],
+  "virtualFolder": {
+    "name": "<virtual_root>",
+    "files": [],
+    "folders": [
+      {
+        "name": "Lib",
+        "files": [
+          {
+            "path": "startup_stm32f334x8.s"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_adc.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_can.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_comp.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_crc.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_dac.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_dbgmcu.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_dma.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_exti.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_flash.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_gpio.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_hrtim.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_i2c.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_iwdg.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_misc.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_opamp.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_pwr.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_rcc.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_rtc.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_spi.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_syscfg.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_tim.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_usart.c"
+          },
+          {
+            "path": "../Lib/STM32F30x_StdPeriph_Driver/src/stm32f30x_wwdg.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "Sys_code",
+        "files": [
+          {
+            "path": "../Sys_code/sys_timer.c"
+          },
+          {
+            "path": "../Sys_code/system_stm32f30x.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "Driver",
+        "files": [
+          {
+            "path": "../User_code/Driver/adc.c"
+          },
+          {
+            "path": "../User_code/Driver/comp.c"
+          },
+          {
+            "path": "../User_code/Driver/dac.c"
+          },
+          {
+            "path": "../User_code/Driver/gpio.c"
+          },
+          {
+            "path": "../User_code/Driver/hrtimer.c"
+          },
+          {
+            "path": "../User_code/Driver/iwdg.c"
+          },
+          {
+            "path": "../User_code/Driver/nvic.c"
+          },
+          {
+            "path": "../User_code/Driver/timer.c"
+          },
+          {
+            "path": "../User_code/Driver/uart.c"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "App",
+        "files": [
+          {
+            "path": "../User_code/App/idle.c"
+          },
+          {
+            "path": "../User_code/App/irq.c"
+          },
+          {
+            "path": "../User_code/App/main.c"
+          },
+          {
+            "path": "../User_code/App/oled.c"
+          },
+          {
+            "path": "../User_code/App/protect.c"
+          },
+          {
+            "path": "../User_code/App/sample.c"
+          },
+          {
+            "path": "../User_code/App/inv3p.c"
+          },
+          {
+            "path": "../User_code/App/math.c"
+          }
+        ],
+        "folders": []
+      }
+    ]
+  },
+  "outDir": "build",
+  "deviceName": "STM32F334R8Tx",
+  "packDir": ".pack/Keil/STM32F3xx_DFP.2.1.0",
+  "miscInfo": {
+    "uid": "a8e6e3c7e31225ba259e29867ab0101b"
+  },
+  "targets": {
+    "inv3p": {
+      "excludeList": [],
+      "toolchain": "AC5",
+      "compileConfig": {
+        "cpuType": "Cortex-M4",
+        "floatingPointHardware": "single",
+        "scatterFilePath": "../Lib/STM32F334C8T6.sct",
+        "useCustomScatterFile": true,
+        "storageLayout": {
+          "RAM": [
+            {
+              "tag": "RAM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "noInit": false
+            },
+            {
+              "tag": "RAM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "noInit": false
+            },
+            {
+              "tag": "RAM",
+              "id": 3,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "noInit": false
+            },
+            {
+              "tag": "IRAM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x20000000",
+                "size": "0x3000"
+              },
+              "isChecked": true,
+              "noInit": false
+            },
+            {
+              "tag": "IRAM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x10000000",
+                "size": "0x1000"
+              },
+              "isChecked": true,
+              "noInit": false
+            }
+          ],
+          "ROM": [
+            {
+              "tag": "ROM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            },
+            {
+              "tag": "ROM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            },
+            {
+              "tag": "ROM",
+              "id": 3,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            },
+            {
+              "tag": "IROM",
+              "id": 1,
+              "mem": {
+                "startAddr": "0x8000000",
+                "size": "0x10000"
+              },
+              "isChecked": true,
+              "isStartup": true
+            },
+            {
+              "tag": "IROM",
+              "id": 2,
+              "mem": {
+                "startAddr": "0x0",
+                "size": "0x0"
+              },
+              "isChecked": false,
+              "isStartup": false
+            }
+          ]
+        },
+        "options": "null"
+      },
+      "uploader": "OpenOCD",
+      "uploadConfig": {
+        "bin": "",
+        "target": "stm32f3x",
+        "interface": "cmsis-dap",
+        "baseAddr": "0x08000000"
+      },
+      "uploadConfigMap": {
+        "JLink": {
+          "bin": "",
+          "baseAddr": "",
+          "cpuInfo": {
+            "vendor": "ST",
+            "cpuName": "STM32F334C8"
+          },
+          "proType": 1,
+          "speed": 8000,
+          "otherCmds": ""
+        }
+      },
+      "custom_dep": {
+        "name": "default",
+        "incList": [
+          "../Lib/CMSIS/Device/ST/STM32F30x/Include",
+          "../Lib/CMSIS/Include",
+          "../Lib/STM32F30x_StdPeriph_Driver/inc",
+          "../Lib/STM32F30x_StdPeriph_Driver/src",
+          ".",
+          "../Algorithm",
+          "../Integration",
+          "../Sys_code",
+          "../User_code/Driver",
+          "../User_code/App",
+          "RTE/_inv3p"
+        ],
+        "libList": [],
+        "defineList": [
+          "USE_STDPERIPH_DRIVER",
+          "STM32F334x8"
+        ]
+      },
+      "builderOptions": {
+        "AC5": {
+          "version": 4,
+          "beforeBuildTasks": [],
+          "afterBuildTasks": [],
+          "global": {
+            "use-microLIB": true,
+            "output-debug-info": "enable"
+          },
+          "c/cpp-compiler": {
+            "optimization": "level-3",
+            "one-elf-section-per-function": true,
+            "c99-mode": true,
+            "C_FLAGS": "--C99",
+            "CXX_FLAGS": "--C99",
+            "optimize-for-time": true,
+            "warnings": "all-warnings"
+          },
+          "asm-compiler": {},
+          "linker": {
+            "output-format": "elf",
+            "xo-base": "",
+            "ro-base": "0x08000000",
+            "rw-base": "0x20000000",
+            "misc-controls": "--diag_suppress=L6329"
+          }
+        }
+      }
+    }
+  },
+  "version": "3.5"
+}

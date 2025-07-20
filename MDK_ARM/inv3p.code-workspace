@@ -1,0 +1,13 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "files.associations": {
+            "inv3p.h": "c"
+        }
+    },
+    "extensions": {}
+}

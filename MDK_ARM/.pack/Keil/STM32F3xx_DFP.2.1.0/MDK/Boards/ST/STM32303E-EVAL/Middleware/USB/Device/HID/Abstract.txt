@@ -1,0 +1,24 @@
+This is an HID example that demonstrates Human Interface Device (HID)
+on USB Device.
+
+Detailed description is available on:
+www.keil.com/pack/doc/MW/USB/html/dev_hid_tutorial.html
+
+Board:                  ST 'STM32303E-EVAL'
+Microcontroller:        ST 'STM32F303VET6'
+Clock Settings:         XTAL    =  8 MHz
+                        CPUCLK  = 72 MHz
+                        USB CLK = 48 MHz
+USB Full-speed:         USB FS (connector CN12)
+User Interface:         input:  User button Key
+                        output: User LEDs (LED1..4)
+
+The example demonstrates a Human Interface Device. The board LEDs and
+push button can be accessed from the PC through a custom
+HID Client Program (.\ARM\Utilities\HID_Client\Release\HIDClient.exe).
+
+The program is available for target(s):
+- Debug:
+  - Compiler optimization Level 1
+- Release:
+  - Compiler optimization Level 3

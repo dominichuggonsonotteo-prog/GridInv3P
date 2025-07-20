@@ -1,0 +1,20 @@
+This is an CAN example that sends and receives 8 byte data messages.
+Loopback mode is selected by default so it does not need physical loopback
+for demonstration. It sends messages to itself internally and to the CAN bus
+so transmitted messages can be captured on the CAN bus also.
+
+Board:                  ST 'STM32373C-EVAL'
+Microcontroller:        ST 'STM32F373VCT6'
+Clock Settings:         XTAL    =  8 MHz
+                        CPUCLK  = 72 MHz
+                        CAN CLK = 36 MHz
+CAN Interface:          CAN (connector CN5)
+                        bit rate 125 kbit/s
+User Interface:         input:  none
+                        output: GLCD, SWO
+
+The program is available for target(s):
+- Debug:
+  - Compiler optimization Level 1
+- Release:
+  - Compiler optimization Level 3

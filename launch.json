@@ -1,0 +1,25 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+            {
+                "cwd": "${workspaceRoot}",
+                "executable": "./build/inv3p/inv3p.axf", // 对应 eide 的项目名称.axf  --- 路径
+                "name": "Debug with OpenOCD",
+                "request": "launch",
+                "type": "cortex-debug",
+                "servertype": "openocd",
+                "configFiles": [
+                    "interface/cmsis-dap.cfg", // 这个是调试器的配置文件
+                    "target/stm32f3x.cfg" // 这个是芯片的配置文件
+                ],
+                "searchDir": [],
+                "runToEntryPoint": "main",
+                "showDevDebugOutput": "none",
+                //svd文件路径，这个加了就是能看寄存器的值吧，可有可不有，
+                // "svdFile": "C:\\\\Users\\\\15022\\\\AppData\\\\Local\\\\Arm\\\\Packs\\\\Keil\\\\STM32F3xx_DFP\\\\3.0.0\\\\CMSIS\\\\SVD\\\\STM32F3x4.svd"
+            }
+    ]
+}

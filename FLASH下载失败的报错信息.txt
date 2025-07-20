@@ -1,0 +1,37 @@
+Open On-Chip Debugger 0.12.0-rc2-g7a1adfbec (2022-11-06-10:08)
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+Info : auto-selecting first available session transport "swd". To override use 'transport select <transport>'.
+Info : CMSIS-DAP: SWD supported
+Info : CMSIS-DAP: JTAG supported
+Info : CMSIS-DAP: Atomic commands supported
+Info : CMSIS-DAP: Test domain timer supported
+Info : CMSIS-DAP: FW Version = 1.2.0
+Info : CMSIS-DAP: Serial# = 002201110000
+Info : CMSIS-DAP: Interface Initialised (SWD)
+Info : SWCLK/TCK = 1 SWDIO/TMS = 1 TDI = 1 TDO = 1 nTRST = 0 nRESET = 1
+Info : CMSIS-DAP: Interface ready
+Info : clock speed 1000 kHz
+Info : SWD DPIDR 0x2ba01477
+Info : [stm32f3x.cpu] Cortex-M4 r0p1 processor detected
+Info : [stm32f3x.cpu] target has 6 breakpoints, 4 watchpoints
+Info : starting gdb server for stm32f3x.cpu on 3333
+Info : Listening on port 3333 for gdb connections
+[stm32f3x.cpu] halted due to debug-request, current mode: Thread 
+xPSR: 0x01000000 pc: 0xfffffffe msp: 0xfffffffc
+** Programming Started **
+Info : device id = 0x10016438
+Info : ignoring flash probed value, using configured bank size
+Info : flash size = 64 KiB
+Warn : Adding extra erase range, 0x08006c3c .. 0x08006fff
+Info : SWD DPIDR 0x2ba01477
+Error: Failed to write memory at 0x20003004
+Error: error writing to flash at address 0x08000000 at offset 0x00000000
+embedded:startup.tcl:1516: Error: ** Programming Failed **
+in procedure 'program'
+in procedure 'program_error' called at file "embedded:startup.tcl", line 1581
+at file "embedded:startup.tcl", line 1516
+
+ *  终端进程“cmd.exe /C "C:\Users\15022\.eide\tools\openocd_7a1adfbec_mingw32\bin\openocd.exe -s "e:\CGNR\20190224TASK\2025\011_RDP_PV_SIMULATION\003CODE\GridInv3P\MDK_ARM" -f interface/cmsis-dap.cfg -f target/stm32f334R8T6_64KB.cfg -c "program \"e:/CGNR/20190224TASK/2025/011_RDP_PV_SIMULATION/003CODE/GridInv3P/MDK_ARM/build/inv3p/inv3p.hex\" verify" -c "reset run" -c "exit""”已终止，退出代码: 1。 
+ *  终端将被任务重用，按任意键关闭。 

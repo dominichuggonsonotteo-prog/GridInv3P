@@ -78,13 +78,13 @@ typedef struct {
     float ialphaRef;               
     float ibetaRef;                
     float vdcRef;                  
-
+		
     float valphaReal;              
     float vbetaReal;               
     float ialphaReal;              
     float ibetaReal;               
     float vdcReal;                 
-
+		
     PIControllerDef dcVoltLoop;        
     PRControllerDef acCurrAlphaLoop;   
     PRControllerDef acCurrBetaLoop;    
@@ -105,6 +105,18 @@ typedef struct {
     uint16_t inv3pFaultFlag;       
     uint16_t inv3pStatusFlag;      
 } Inv3pLoopConfig;
+
+
+typedef struct{
+	
+	uint16_t int1;
+	uint16_t int2;
+	float f1;
+	float f2;
+	
+} debug;
+
+
 
 extern uint16_t g_inv3pLoopCnt;
 extern float g_vacRealACorrect;

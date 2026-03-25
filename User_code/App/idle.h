@@ -10,13 +10,13 @@
 #include "sample.h"
 #include "math.h"
 
- 
+
 #define    INV3P_ON_OFF_FLAG      0x0001
 #define    INV3P_CLOSE_FLAG       0x0002
 #define    INV3P_PLL_OK_FLAG      0x0004
 #define    INV3P_POWER_OK_FLAG    0x0008
 
- 
+
 #define    IS_INV3P_ON            ((g_inv3pLoop.inv3pStatusFlag & INV3P_ON_OFF_FLAG) == INV3P_ON_OFF_FLAG)
 #define    IS_CLOSE_EN            ((g_inv3pLoop.inv3pStatusFlag & INV3P_CLOSE_FLAG) == INV3P_CLOSE_FLAG)
 #define    IS_PLL_OK              ((g_inv3pLoop.inv3pStatusFlag & INV3P_PLL_OK_FLAG) == INV3P_PLL_OK_FLAG)

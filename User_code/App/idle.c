@@ -164,6 +164,19 @@ void ParamSoftStart(float *output, float *input, float rampParam)
 void Inv3pStatusFresh(void)
 {
     static uint16_t pllLoopOkCnt = 0;
+
+    if (PLL_EN == TRUE) {
+        g_inv3pLoop.inv3pStatusFlag |= INV3P_PLL_CMD_FLAG;
+    } else {
+        g_inv3pLoop.inv3pStatusFlag &= (~INV3P_PLL_CMD_FLAG);
+    }
+
+    if (g_pllEN == TRUE) {
+        g_inv3pLoop.inv3pStatusFlag |= INV3P_PLL_EN_FLAG;
+    } else {
+        g_inv3pLoop.inv3pStatusFlag &= (~INV3P_PLL_EN_FLAG);
+    }
+
     g_inv3pLoop.inv3pStatusFlag |= INV3P_CLOSE_FLAG;
     
     //电源在开机状态下才更新环路稳定状态位
@@ -265,8 +278,10 @@ void SendDataToPc(void)
     g_sendToPC.inv3pVacRms = (uint16_t) (g_vacRmsReportFilter * (100.0f));
     g_sendToPC.inv3pId = (uint16_t) ((g_iacDReportFilter + (100.0f)) * (100.0f));
     g_sendToPC.inv3pIq = (uint16_t) ((g_iacQReportFilter + (100.0f)) * (100.0f));
-    g_sendToPC.inv3pFreq = (uint16_t) (g_freqReport * (100.0f));
-    g_sendToPC.inv3pModu = (uint16_t) (g_moduReport * (10000.0f));
+    // 直接上报 PLL 原始输出频率，便于观察锁相环是否真的在动态跟踪
+    g_sendToPC.inv3pFreq = (uint16_t) (g_pllLoop.freq * (100.0f));
+    // 临时复用调制比字段，上报下位机实际接收并通过校验的控制字
+    g_sendToPC.inv3pModu = g_cmdFromPC.pcCmdBit;
     
     // 电源故障和运行状态标志位上报
     g_sendToPC.inv3pFaultFlag = g_inv3pLoop.inv3pFaultFlag;
@@ -275,11 +290,14 @@ void SendDataToPc(void)
     // 电源指令值回读
     g_sendToPC.readIdRef = (uint16_t) ((g_inv3pIdRef + (100.0f)) * (100.0f));
     g_sendToPC.readIqRef = (uint16_t) ((g_inv3pIqRef + (100.0f)) * (100.0f));
-    g_sendToPC.readVdcRef = 0;
-    g_sendToPC.readModuRef = 0;
+    // 利用原保留回读位上报 PLL 调试量
+    // readVdcRef: PLL PI 输出的频偏量，编码格式与 Id/Iq 一致 => (value + 100) * 100
+    g_sendToPC.readVdcRef = (uint16_t) ((g_pllLoop.pllLoop.output + (100.0f)) * (100.0f));
+    // readModuRef: 低通后的 PLL 频率，便于和原始频率做对比
+    g_sendToPC.readModuRef = (uint16_t) (g_freqReport * (100.0f));
     
-    // 功率连续运行时间
-    g_sendToPC.powerRunTimeSec = g_powerRunTimeSec;
+    // 临时复用运行时间字段，上报 PLL q 轴误差，便于判断锁相输入是否真的在变化
+    g_sendToPC.powerRunTimeSec = (uint16_t) ((g_pllLoop.pllLoop.error + (100.0f)) * (100.0f));
     
     // 上报上位机的数据加入异或校验
     g_sendToPC.xorVertify = 0;

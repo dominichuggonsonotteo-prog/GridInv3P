@@ -51,14 +51,14 @@ uint16_t inv3pVacRms; // 实际交流电压RMS*100
 uint16_t inv3pId; // 实际交流有功电流*100
 uint16_t inv3pIq; // 实际交流无功电流*100
 uint16_t inv3pFreq; // 实际交流频率*100
-uint16_t inv3pModu; // 实际调制比*100
+uint16_t inv3pModu; // 临时复用为下位机接收控制字回显
 uint16_t inv3pFaultFlag; // 电源故障标志位
-uint16_t inv3pStatusFlag; // 电源运行状态标志位
+uint16_t inv3pStatusFlag; // 电源运行状态标志位（含PLL命令请求/PLL内部使能调试位）
 uint16_t readIdRef; // d轴电流指令值回读*100
 uint16_t readIqRef; // q轴电流指令值回读*100
 uint16_t readVdcRef; // 直流电压指令值回读*100
 uint16_t readModuRef; // 调制比指令值回读*100
-uint16_t powerRunTimeSec; // 功率连续运行时间
+uint16_t powerRunTimeSec; // 临时复用为PLL误差Q轴*100
 uint16_t xorVertify; // 异或校验
 } DataReportConfig;
 

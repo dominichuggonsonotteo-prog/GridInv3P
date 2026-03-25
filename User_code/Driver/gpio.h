@@ -4,23 +4,23 @@
 #include "stm32f30x_conf.h"
 
 
-#define LED_RED_ON      (GPIO_SetBits(GPIOC, GPIO_Pin_15)) //╧йуож╦й╬╣ф
+#define LED_RED_ON      (GPIO_SetBits(GPIOC, GPIO_Pin_15)) //Ф∙┘И °Ф▄┤Г╓╨Г│╞
 #define LED_RED_OFF     (GPIO_ResetBits(GPIOC, GPIO_Pin_15))
-#define LED_ORANGE_ON        (GPIO_SetBits(GPIOC, GPIO_Pin_14))//ткппж╦й╬╣ф
+#define LED_ORANGE_ON        (GPIO_SetBits(GPIOC, GPIO_Pin_14))//Х©░Х║▄Ф▄┤Г╓╨Г│╞
 #define LED_ORANGE_OFF       (GPIO_ResetBits(GPIOC, GPIO_Pin_14))
 
 
 
  
-#define FAN_ON             (GPIO_SetBits(GPIOA, GPIO_Pin_12))//╡╒ц╩сп╥╒╩свВсц
-#define FAN_OFF            (GPIO_ResetBits(GPIOA, GPIO_Pin_12))//╡╒ц╩сп╥╒╩свВсц
+#define FAN_ON             (GPIO_SetBits(GPIOA, GPIO_Pin_12))//Е╧╤Ф╡║Ф°┴Е▐▒Ф▄╔Д╫°Г■╗
+#define FAN_OFF            (GPIO_ResetBits(GPIOA, GPIO_Pin_12))//Е╧╤Ф╡║Ф°┴Е▐▒Ф▄╔Д╫°Г■╗
  
-#define DEBUG_ON           (GPIO_SetBits(GPIOC, GPIO_Pin_3))//╡╒ц╩сп╥╒╩свВсц
-#define DEBUG_OFF          (GPIO_ResetBits(GPIOC, GPIO_Pin_3))//╡╒ц╩сп╥╒╩свВсц
+#define DEBUG_ON           (GPIO_SetBits(GPIOC, GPIO_Pin_3))//Е╧╤Ф╡║Ф°┴Е▐▒Ф▄╔Д╫°Г■╗
+#define DEBUG_OFF          (GPIO_ResetBits(GPIOC, GPIO_Pin_3))//Е╧╤Ф╡║Ф°┴Е▐▒Ф▄╔Д╫°Г■╗
  
-#define SWITCH_STATUS      (GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_7))//╡╒ц╩сп╥╒╩свВсц
+#define SWITCH_STATUS      (GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_7))//Е╧╤Ф╡║Ф°┴Е▐▒Ф▄╔Д╫°Г■╗
  
-#define KEY_STATUS         (GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_6))//╡╒ц╩сп╥╒╩свВсц
+#define KEY_STATUS         (GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_6))//Е╧╤Ф╡║Ф°┴Е▐▒Ф▄╔Д╫°Г■╗
 
 void GpioInit(void);
 void GpioInitConfig(GPIO_TypeDef * GPIO_Type, uint32_t GPIO_Pin, GPIOMode_TypeDef GPIO_Mode, GPIOPuPd_TypeDef GPIO_PuPd_Mode);

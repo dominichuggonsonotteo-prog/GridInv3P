@@ -21,6 +21,11 @@
 #define    INV3P_PWM_B_CLAMP_FLAG 0x0200
 #define    INV3P_PWM_C_CLAMP_FLAG 0x0400
 
+// Inv3p reference ramp runs inside the 200 us slow task.
+// 0.0002 A per 200 us ~= 1 A/s, used as a lower-side safety fallback
+// even when the upper computer sends a large step.
+#define    INV3P_REF_RAMP_STEP    (0.0002f)
+
 
 #define    IS_INV3P_ON            ((g_inv3pLoop.inv3pStatusFlag & INV3P_ON_OFF_FLAG) == INV3P_ON_OFF_FLAG)
 #define    IS_CLOSE_EN            ((g_inv3pLoop.inv3pStatusFlag & INV3P_CLOSE_FLAG) == INV3P_CLOSE_FLAG)

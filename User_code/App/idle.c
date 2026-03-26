@@ -258,9 +258,11 @@ void Inv3pOnoffProcess(void)
         } else {
             // 开机后电源运行指示灯亮起
             LED_ORANGE_ON;
-            // AC电流指令以0.01A/100us RAMP
-            ParamSoftStart(&g_inv3pIdRefRamp, &g_inv3pIdRef, (0.02f));
-            ParamSoftStart(&g_inv3pIqRefRamp, &g_inv3pIqRef, (0.02f));
+            // AC current reference ramp runs in the 200 us slow task.
+            // Keep the lower-side ramp intentionally slow so the inverter
+            // can absorb large host-side steps safely.
+            ParamSoftStart(&g_inv3pIdRefRamp, &g_inv3pIdRef, INV3P_REF_RAMP_STEP);
+            ParamSoftStart(&g_inv3pIqRefRamp, &g_inv3pIqRef, INV3P_REF_RAMP_STEP);
         }
         // 功率连续输出计时，右移10位近似除以1000
         g_powerRunTimeSec = (uint16_t) ((g_systemTimeBaseMs - powerStartTimeMs) >> 10);
@@ -325,8 +327,9 @@ void SendDataToPc(void)
     g_sendToPC.inv3pStatusFlag = g_inv3pLoop.inv3pStatusFlag;
     
     // 电源指令值回读
-    g_sendToPC.readIdRef = (uint16_t) ((g_inv3pIdRef + (100.0f)) * (100.0f));
-    g_sendToPC.readIqRef = (uint16_t) ((g_inv3pIqRef + (100.0f)) * (100.0f));
+    // Read back the ramped reference that is actually entering the control loop.
+    g_sendToPC.readIdRef = (uint16_t) ((g_inv3pIdRefRamp + (100.0f)) * (100.0f));
+    g_sendToPC.readIqRef = (uint16_t) ((g_inv3pIqRefRamp + (100.0f)) * (100.0f));
     // 临时复用保留回读位上报正无功异常诊断量
     // readVdcRef: α轴电流环输出，使用有符号 int16 编码，缩放 100 倍
     g_sendToPC.readVdcRef = EncodeSignedValueX100(g_inv3pLoop.acCurrAlphaLoop.output);

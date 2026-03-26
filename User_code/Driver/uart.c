@@ -35,7 +35,7 @@ void UartInit(void)
     DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) &(USART3->RDR);             // 外设地址：USART3接收数据寄存器
     DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t) &g_cmdFromPCTemp;               // 内存地址：接收缓冲区
     DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralSRC;                                // 传输方向：外设到内存
-    DMA_InitStructure.DMA_BufferSize = 22;                                            // 缓冲区大小：22字节
+    DMA_InitStructure.DMA_BufferSize = sizeof(g_cmdFromPCTemp);                       // 缓冲区大小：接收帧长度
     DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;                  // 外设地址不递增
     DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;                           // 内存地址递增
     DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;           // 外设数据大小：字节
@@ -54,7 +54,7 @@ void UartInit(void)
     DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) &(USART3->TDR);             // 外设地址：USART3发送数据寄存器
     DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t) &g_sendToPC;                    // 内存地址：发送缓冲区
     DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;                                // 传输方向：内存到外设
-    DMA_InitStructure.DMA_BufferSize = 30;                                            // 缓冲区大小：30字节
+    DMA_InitStructure.DMA_BufferSize = sizeof(g_sendToPC);                            // 缓冲区大小：发送帧长度
     DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;                  // 外设地址不递增
     DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;                           // 内存地址递增
     DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;           // 外设数据大小：字节

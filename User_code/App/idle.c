@@ -37,6 +37,24 @@ uint16_t g_powerRunTimeSec = 0;
 // 串口通信超时计时
 uint16_t g_uartOverTimeCnt = 0;
 
+static uint16_t EncodeSignedValueX100(float value)
+{
+    int32_t scaledValue = (int32_t) (value * (100.0f));
+    CLAMP(scaledValue, 32767, -32768);
+    return (uint16_t) ((int16_t) scaledValue);
+}
+
+static uint16_t EncodeUnsignedValueX10000(float value)
+{
+    if (value < (0.0f)) {
+        value = (0.0f);
+    } else if (value > (6.5535f)) {
+        value = (6.5535f);
+    }
+
+    return (uint16_t) (value * (10000.0f));
+}
+
 // 整数求绝对值函数
 int16_t AbsInt16(int16_t parameter)
 {
@@ -271,6 +289,7 @@ void Inv3pOnoffProcess(void)
 void SendDataToPc(void)
 {
     uint16_t *ptr = (uint16_t *) (&g_sendToPC);
+    float modulateMagnitude = 0.0f;
     g_sendToPC.head = UART_HEAD;
     
     // 变量的上报值为*100后上报
@@ -283,6 +302,24 @@ void SendDataToPc(void)
     // 临时复用调制比字段，上报下位机实际接收并通过校验的控制字
     g_sendToPC.inv3pModu = g_cmdFromPC.pcCmdBit;
     
+    if ((g_inv3pLoop.compareCntA <= MIN_COMPARE) || (g_inv3pLoop.compareCntA >= MAX_COMPARE)) {
+        g_inv3pLoop.inv3pStatusFlag |= INV3P_PWM_A_CLAMP_FLAG;
+    } else {
+        g_inv3pLoop.inv3pStatusFlag &= (~INV3P_PWM_A_CLAMP_FLAG);
+    }
+
+    if ((g_inv3pLoop.compareCntB <= MIN_COMPARE) || (g_inv3pLoop.compareCntB >= MAX_COMPARE)) {
+        g_inv3pLoop.inv3pStatusFlag |= INV3P_PWM_B_CLAMP_FLAG;
+    } else {
+        g_inv3pLoop.inv3pStatusFlag &= (~INV3P_PWM_B_CLAMP_FLAG);
+    }
+
+    if ((g_inv3pLoop.compareCntC <= MIN_COMPARE) || (g_inv3pLoop.compareCntC >= MAX_COMPARE)) {
+        g_inv3pLoop.inv3pStatusFlag |= INV3P_PWM_C_CLAMP_FLAG;
+    } else {
+        g_inv3pLoop.inv3pStatusFlag &= (~INV3P_PWM_C_CLAMP_FLAG);
+    }
+
     // 电源故障和运行状态标志位上报
     g_sendToPC.inv3pFaultFlag = g_inv3pLoop.inv3pFaultFlag;
     g_sendToPC.inv3pStatusFlag = g_inv3pLoop.inv3pStatusFlag;
@@ -290,18 +327,26 @@ void SendDataToPc(void)
     // 电源指令值回读
     g_sendToPC.readIdRef = (uint16_t) ((g_inv3pIdRef + (100.0f)) * (100.0f));
     g_sendToPC.readIqRef = (uint16_t) ((g_inv3pIqRef + (100.0f)) * (100.0f));
-    // 利用原保留回读位上报 PLL 调试量
-    // readVdcRef: PLL PI 输出的频偏量，编码格式与 Id/Iq 一致 => (value + 100) * 100
-    g_sendToPC.readVdcRef = (uint16_t) ((g_pllLoop.pllLoop.output + (100.0f)) * (100.0f));
-    // readModuRef: 低通后的 PLL 频率，便于和原始频率做对比
-    g_sendToPC.readModuRef = (uint16_t) (g_freqReport * (100.0f));
-    
-    // 临时复用运行时间字段，上报 PLL q 轴误差，便于判断锁相输入是否真的在变化
-    g_sendToPC.powerRunTimeSec = (uint16_t) ((g_pllLoop.pllLoop.error + (100.0f)) * (100.0f));
+    // 临时复用保留回读位上报正无功异常诊断量
+    // readVdcRef: α轴电流环输出，使用有符号 int16 编码，缩放 100 倍
+    g_sendToPC.readVdcRef = EncodeSignedValueX100(g_inv3pLoop.acCurrAlphaLoop.output);
+    // readModuRef: β轴电流环输出，使用有符号 int16 编码，缩放 100 倍
+    g_sendToPC.readModuRef = EncodeSignedValueX100(g_inv3pLoop.acCurrBetaLoop.output);
+
+    modulateMagnitude = Sqrt(g_modulateSign.paramAlpha * g_modulateSign.paramAlpha + \
+                             g_modulateSign.paramBeta * g_modulateSign.paramBeta);
+    // powerRunTimeSec: 调制度矢量幅值，缩放 10000 倍，便于观察是否逼近调制极限
+    g_sendToPC.powerRunTimeSec = EncodeUnsignedValueX10000(modulateMagnitude);
+    g_sendToPC.compareCntA = (uint16_t) (g_inv3pLoop.compareCntA);
+    g_sendToPC.compareCntB = (uint16_t) (g_inv3pLoop.compareCntB);
+    g_sendToPC.compareCntC = (uint16_t) (g_inv3pLoop.compareCntC);
+    g_sendToPC.phaseCurrA = EncodeSignedValueX100(g_iacRealACorrect);
+    g_sendToPC.phaseCurrB = EncodeSignedValueX100(g_iacRealBCorrect);
+    g_sendToPC.phaseCurrC = EncodeSignedValueX100(g_iacRealCCorrect);
     
     // 上报上位机的数据加入异或校验
     g_sendToPC.xorVertify = 0;
-    for (uint16_t i = 1; i < 14; i++) {
+    for (uint16_t i = 1; i < (sizeof(g_sendToPC) / sizeof(uint16_t)) - 1; i++) {
         g_sendToPC.xorVertify ^= (uint16_t) (*(ptr + i));
     }
     

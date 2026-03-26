@@ -17,6 +17,9 @@
 #define    INV3P_POWER_OK_FLAG    0x0008
 #define    INV3P_PLL_CMD_FLAG     0x0010
 #define    INV3P_PLL_EN_FLAG      0x0020
+#define    INV3P_PWM_A_CLAMP_FLAG 0x0100
+#define    INV3P_PWM_B_CLAMP_FLAG 0x0200
+#define    INV3P_PWM_C_CLAMP_FLAG 0x0400
 
 
 #define    IS_INV3P_ON            ((g_inv3pLoop.inv3pStatusFlag & INV3P_ON_OFF_FLAG) == INV3P_ON_OFF_FLAG)

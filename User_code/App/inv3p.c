@@ -256,10 +256,15 @@ void Inv3pCurrLoop(void)
     PRController(&g_inv3pLoop.acCurrAlphaLoop);
     PRController(&g_inv3pLoop.acCurrBetaLoop);
     // 对控制器输出的调制信号做输出电压前馈和输入电压前馈
-    g_modulateSign.paramAlpha = (g_inv3pLoop.acCurrAlphaLoop.output + g_inv3pLoop.acHarm5CurrAlphaLoop.krOutput + \
-        g_inv3pLoop.acHarm7CurrAlphaLoop.krOutput + g_inv3pLoop.valphaReal * (0.8f)) * 2 / g_vdcRealFilter;
-    g_modulateSign.paramBeta = (g_inv3pLoop.acCurrBetaLoop.output + g_inv3pLoop.acHarm5CurrBetaLoop.krOutput + \
-        g_inv3pLoop.acHarm7CurrBetaLoop.krOutput + g_inv3pLoop.vbetaReal * (0.8f)) * 2 / g_vdcRealFilter;
+    if (INV3P_HARMONIC_SUPPRESSION_ENABLE == TRUE) {
+        g_modulateSign.paramAlpha = (g_inv3pLoop.acCurrAlphaLoop.output + g_inv3pLoop.acHarm5CurrAlphaLoop.krOutput + \
+            g_inv3pLoop.acHarm7CurrAlphaLoop.krOutput + g_inv3pLoop.valphaReal * INV3P_AC_VOLTAGE_FEEDFORWARD_GAIN) * 2 / g_vdcRealFilter;
+        g_modulateSign.paramBeta = (g_inv3pLoop.acCurrBetaLoop.output + g_inv3pLoop.acHarm5CurrBetaLoop.krOutput + \
+            g_inv3pLoop.acHarm7CurrBetaLoop.krOutput + g_inv3pLoop.vbetaReal * INV3P_AC_VOLTAGE_FEEDFORWARD_GAIN) * 2 / g_vdcRealFilter;
+    } else {
+        g_modulateSign.paramAlpha = (g_inv3pLoop.acCurrAlphaLoop.output + g_inv3pLoop.valphaReal * INV3P_AC_VOLTAGE_FEEDFORWARD_GAIN) * 2 / g_vdcRealFilter;
+        g_modulateSign.paramBeta = (g_inv3pLoop.acCurrBetaLoop.output + g_inv3pLoop.vbetaReal * INV3P_AC_VOLTAGE_FEEDFORWARD_GAIN) * 2 / g_vdcRealFilter;
+    }
     // 将调制信号变换到ABC坐标系
     AlphaBetaToAbc(&g_modulateSign);
     g_inv3pLoop.dutyCycleA = g_modulateSign.paramA;
@@ -427,7 +432,7 @@ CCMRAM void Inv3pControlLoop(void)
         }
         
         // 检查谐波控制使能状态
-        if (HARMONY_CURR_STATUS == TRUE) { 
+        if (INV3P_HARMONIC_SUPPRESSION_ENABLE == TRUE) { 
             Inv3pHarm5_7CurrLoop(); // 执行5/7次谐波控制
         }
         
